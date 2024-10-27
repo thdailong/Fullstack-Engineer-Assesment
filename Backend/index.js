@@ -20,6 +20,18 @@ app.get("/repos", async (req, res) => {
   }
 });
 
+app.get("/repos/:repoName", async (req, res) => {
+  try {
+    const { repoName } = req.params;
+    const response = await axios.get(
+      `https://api.github.com/repos/freeCodeCamp/${repoName}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
