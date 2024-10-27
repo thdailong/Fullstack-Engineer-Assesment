@@ -4,6 +4,7 @@ import classes from "./styles/CardRepo.module.css";
 import Layout from "../layout";
 import RowRepo from "./RowRepo";
 import BtnFilterByLanguages from "../Button/BtnFilterByLanguages";
+import Loading from "../Loading";
 
 const CardRepo = () => {
   const [data, setData] = useState([]);
@@ -53,15 +54,21 @@ const CardRepo = () => {
           />
         </div>
       </div>
-      {filteredData?.map((repo) => (
-        <RowRepo
-          repo={repo}
-          key={repo?.id}
-          onClickLanguage={() => {
-            setFilterLanguage(repo?.language);
-          }}
-        />
-      ))}
+      {isLoading && (
+        <div className={classes.loading}>
+          <Loading />
+        </div>
+      )}
+      {!isLoading &&
+        filteredData?.map((repo) => (
+          <RowRepo
+            repo={repo}
+            key={repo?.id}
+            onClickLanguage={() => {
+              setFilterLanguage(repo?.language);
+            }}
+          />
+        ))}
     </Layout>
   );
 };
