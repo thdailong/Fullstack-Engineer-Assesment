@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 const PORT = 4000;
+const cors = require("cors");
+
+app.use(cors()); // Enable CORS for all routes
 
 // "/repos" endpoint to get repository data
 app.get("/repos", async (req, res) => {
