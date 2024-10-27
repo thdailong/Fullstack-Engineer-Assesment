@@ -5,11 +5,13 @@ import Layout from "../layout";
 import RowRepo from "./RowRepo";
 import BtnFilterByLanguages from "../Button/BtnFilterByLanguages";
 import Loading from "../Loading";
+import RepoSelected from "./RepoSelected";
 
 const CardRepo = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterLanguage, setFilterLanguage] = useState("All");
+  const [repoSelected, setRepoSelected] = useState(null);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -41,34 +43,50 @@ const CardRepo = () => {
 
   return (
     <Layout>
-      <div className={classes.header}>
-        <h1 className={classes.title}>All repositories from freeCodeCamp</h1>
-        <div>
-          Filter by Language:
-          <BtnFilterByLanguages
-            value={filterLanguage}
-            onChange={(e) => {
-              setFilterLanguage(e.target.value);
-            }}
-            options={languages}
-          />
-        </div>
-      </div>
-      {isLoading && (
-        <div className={classes.loading}>
-          <Loading />
-        </div>
+      {repoSelected && (
+        <RepoSelected
+          repo={repoSelected}
+          onBack={() => setRepoSelected(null)}
+        />
       )}
-      {!isLoading &&
-        filteredData?.map((repo) => (
-          <RowRepo
-            repo={repo}
-            key={repo?.id}
-            onClickLanguage={() => {
-              setFilterLanguage(repo?.language);
-            }}
-          />
-        ))}
+      {!repoSelected && (
+        <>
+          <div className={classes.header}>
+            <h1 className={classes.title}>
+              All repositories from freeCodeCamp
+            </h1>
+            <div>
+              Filter by Language:
+              <BtnFilterByLanguages
+                value={filterLanguage}
+                onChange={(e) => {
+                  setFilterLanguage(e.target.value);
+                }}
+                options={languages}
+              />
+            </div>
+          </div>
+          {isLoading && (
+            <div className={classes.loading}>
+              <Loading />
+            </div>
+          )}
+          {!isLoading &&
+            !repoSelected &&
+            filteredData?.map((repo) => (
+              <RowRepo
+                repo={repo}
+                key={repo?.id}
+                onClickLanguage={() => {
+                  setFilterLanguage(repo?.language);
+                }}
+                onClickRepo={() => {
+                  setRepoSelected(repo);
+                }}
+              />
+            ))}
+        </>
+      )}
     </Layout>
   );
 };

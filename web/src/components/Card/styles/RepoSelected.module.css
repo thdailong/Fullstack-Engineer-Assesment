@@ -1,0 +1,36 @@
+.container {
+    padding-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.title-commit {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 6px;
+    margin-top: 10px;
+}
+
+.commit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.value {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    padding-left: 6px;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}

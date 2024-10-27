@@ -24,7 +24,7 @@ app.get("/repos/:repoName", async (req, res) => {
   try {
     const { repoName } = req.params;
     const response = await axios.get(
-      `https://api.github.com/repos/freeCodeCamp/${repoName}`
+      `https://api.github.com/repos/freeCodeCamp/${repoName}/commits`
     );
     res.json(response.data);
   } catch (error) {
